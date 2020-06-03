@@ -20,37 +20,43 @@ public class VoucherHandler extends Controller{
 		return (controller == null) ? controller = new VoucherHandler() : controller;
 	}
 	
+	//method untuk memasukan voucher baru ke dalam database
 	public VoucherModel insertData(Float discount, String date) {
 		Date validDate = Date.valueOf(date);
 		
 		return (VoucherModel) new VoucherModel(discount, validDate, "valid").insertData();
 	}
 	
+	//method untuk melakukan update data voucher 
 	public VoucherModel updateData(int id, Float discount, String date) {
 		Date validDate = Date.valueOf(date);
 		return (VoucherModel) new VoucherModel(id, discount, validDate).insertData();
 	}
 	
+	//method untuk melakukan penghapusan voucher berdasarkan id-nya
 	public Boolean deleteData(int id) {
 		VoucherModel data = (VoucherModel) find(id);
 		return data.deleteData();
 	}
 	
+	//method untuk mengupdate status voucher menjadi sudah digunakan
 	public void useVoucher(int id) {
 		model.useVoucher(id);
 	}
 
+	//method untuk mengambil seluruh data voucher dari database
 	@Override
 	public List<Model> getAllData() {
 		return model.getData("Voucher");
 	}
 
+	//method untuk mencari data voucher yang ada pada database berdasarkan id-nya
 	@Override
 	public Model find(int id) {
-		// TODO Auto-generated method stub
 		return model.findData(id);
 	}
 	
+	//Method untuk mengecek apakah sebuah string adalah angka
 	public Boolean isNumber(String str) {
 		try {
 			Integer.parseInt(str);
@@ -60,6 +66,7 @@ public class VoucherHandler extends Controller{
 		}
 	}
 	
+	//Method untuk mengecek dengan menggunakan id apakah sebuah voucher terdapat pada database 
 	public Boolean checkID(int id) {
 		if(find(id)==null) {
 			return false;
@@ -67,6 +74,7 @@ public class VoucherHandler extends Controller{
 		return true;
 	}
 	
+	//method untuk mengecek apakah diskon/discount yang dimasukan sudah sesuai dengan ketentuan
 	public Boolean checkDiscount(String str) {
 		if(str.isEmpty()) {
 			return false;
@@ -80,6 +88,7 @@ public class VoucherHandler extends Controller{
 		return true;
 	}
 	
+	//Method untuk mengecek apakah sebuah string adalah Date dengan format yang benar
 	public Boolean checkValidDate(String str) {
 		try {
 			Date.valueOf(str);
@@ -89,6 +98,7 @@ public class VoucherHandler extends Controller{
 		}
 	}
 	
+	//method untu mengecek apakah date/tanggal yang dimasukan sudah sesuai dengan ketentuan
 	public Boolean checkDate(String date) {
 		if(date.isEmpty()) {
 			return false;

@@ -10,7 +10,8 @@ public abstract class Controller {
 
 	public Controller() {
 	}
-
+	
+	//method untuk mengembalikan mainView
 	public View getView() {
 		return MainView.getInstance();
 	};

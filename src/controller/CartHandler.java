@@ -31,10 +31,12 @@ public class CartHandler{
 		return false;
 	}
 	
+	//Method untuk menghapus seluruh isi list cart
 	public void emptyCart() {
 		cartList.clear();
 	}
 	
+	//Method untuk memasukan item ke dalam list cart
 	public CartModel insertData(int id, int quantity) {
 		ProductModel model = new ProductModel();
 		CartModel item = new CartModel((ProductModel) model.findData(id), quantity);
@@ -51,6 +53,7 @@ public class CartHandler{
 		}
 	}
 	
+	//Method untuk melakukan update stock pada barang yang sudah ada di dalam list cart
 	public CartModel updateStock(int id, int quantity) {
 		for (CartModel x : cartList) {
 			if(x.getProduct().getId() == id) {
@@ -61,10 +64,13 @@ public class CartHandler{
 		return null;
 	}
 
+	//Method untuk memanggil list cart
 	public List<CartModel> getCartList() {
 		return cartList;
 	}
 	
+	
+	//Method untuk menghitung total seluruh harga barang yang ada di dalam list cart
 	public int getTotalPrice() {	
 		int totalPrice = 0; 
 		
@@ -74,6 +80,7 @@ public class CartHandler{
 		return totalPrice;
 	}
 
+	//Method untuk mengecek apakah sebuah string adalah angka
 	public Boolean isNumber(String str) {
 		try {
 			Integer.parseInt(str);
@@ -83,6 +90,7 @@ public class CartHandler{
 		}
 	}
 	
+	//Method untuk mengecek dengan menggunakan id apakah sebuah barang terdapat pada database 
 	public Boolean checkID(String id) {
 		if(!isNumber(id)) {
 			return false;
@@ -94,7 +102,7 @@ public class CartHandler{
 		return true;
 	}
 	
-	
+	//Method untuk mengecek apakah stock barang cukup
 	public Boolean checkQuantity(String id,String quantity) {
 		ProductModel item = (ProductModel) ProductHandler.getInstance().find(Integer.parseInt(id));
 		

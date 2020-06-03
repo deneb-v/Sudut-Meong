@@ -15,11 +15,13 @@ public class EmployeeHandler extends Controller{
 	private static EmployeeHandler controller;
 	private EmployeeModel model;
 	private EmployeeModel onLog;
-
+	
+	//method untuk mengembalikan employee yang sedang login kedalam aplikasi
 	public EmployeeModel getOnLog() {
 		return onLog;
 	}
 
+	//method untuk mengassign employee mana yang sedang login kedalam aplikasi
 	public void setOnLog(EmployeeModel onLog) {
 		this.onLog = onLog;
 	}
@@ -33,6 +35,7 @@ public class EmployeeHandler extends Controller{
 		return (controller==null) ? controller = new EmployeeHandler() : controller;
 	}
 	
+	//method untuk menambahkan employee baru kedalam database
 	public EmployeeModel insertData(int roleID, String name, String username, String dOB, int salary, String status) {
 		String password = randomPassword();
 		Date DOB = Date.valueOf(dOB);
@@ -40,12 +43,14 @@ public class EmployeeHandler extends Controller{
 		return (EmployeeModel) new EmployeeModel(roleID, name, username, DOB, salary, status, password).insertData();
 	}
 	
+	//method untuk melakukan update data employee
 	public EmployeeModel updateData(int id, int roleID, String name, String username, String dOB, int salary) {
 		Date DOB = Date.valueOf(dOB);
 		
 		return (EmployeeModel) new EmployeeModel(id, roleID, name, username, DOB, salary).updateData();
 	}
 	
+	//method untuk memecat employee
 	public EmployeeModel fireEmployee(int id) {
 		EmployeeModel data = (EmployeeModel) find(id);
 		System.out.println(data.getName());
@@ -54,12 +59,14 @@ public class EmployeeHandler extends Controller{
 		return (EmployeeModel) data.fireEmployee();
 	}
 	
+	//method untuk mereset password employee
 	public EmployeeModel resetPassword(int id) {
 		EmployeeModel data = (EmployeeModel) find(id);
 		data.setPassword(randomPassword());
 		return (EmployeeModel) data.resetPassword();
 	}
 	
+	//method untuk melakukan cek pada username dan password yang dimasukan pada saat login
 	public Boolean checkUsernamePassword(String username, String password) {
 		if(username.isEmpty()) {
 			return false;
@@ -70,6 +77,7 @@ public class EmployeeHandler extends Controller{
 		return true;
 	}
 	
+	//method untuk melakukan login lalu membuka tampilan sesuai dengan role dari employee tersebut
 	public EmployeeModel login(String username, String password) {
 		onLog = (EmployeeModel) model.login(username, password);
 		if(onLog!=null) {
@@ -92,16 +100,19 @@ public class EmployeeHandler extends Controller{
 		return onLog;
 	}
 
+	//method untuk mengambil seluruh data employee dari database
 	@Override
 	public List<Model> getAllData() {
 		return model.getData("Employee");
 	}
 
+	//method untuk mencari data employee yang ada pada database berdasarkan id-nya
 	@Override
 	public Model find(int id) {
 		return model.findData(id);
 	}
 	
+	//method untuk melakukan generate password baru untuk employee
 	private String randomPassword() {
 		Random r = new Random();
 		Integer res = r.nextInt(99999999-12345678+1)+12345678;
@@ -109,6 +120,7 @@ public class EmployeeHandler extends Controller{
 		return res.toString();
 	}
 	
+	//Method untuk mengecek apakah sebuah string adalah angka
 	public Boolean isNumber(String str) {
 		try {
 			Integer.parseInt(str);
@@ -118,6 +130,7 @@ public class EmployeeHandler extends Controller{
 		}
 	}
 	
+	//method untuk mengecek apakah sebuah username yang baru dibuat adalah username yang unik atau belum pernah dibuat
 	public Boolean checkUsername(String str) {
 		if(str.isEmpty()) {
 			return false;
@@ -133,6 +146,7 @@ public class EmployeeHandler extends Controller{
 		return true;
 	}
 	
+	//method untuk mengecek apakah sebuah username yang baru diupdate adalah username yang unik atau belum pernah dibuat
 	public Boolean checkUsername(String str, int id) {
 		if(str.isEmpty()) {
 			return false;
@@ -148,6 +162,7 @@ public class EmployeeHandler extends Controller{
 		return true;
 	}
 	
+	//Method untuk mengecek apakah sebuah string adalah Date dengan format yang benar
 	public Boolean checkValidDate(String str) {
 		try {
 			Date.valueOf(str);
@@ -157,6 +172,7 @@ public class EmployeeHandler extends Controller{
 		}
 	}
 	
+	//Method untuk mengecek apakah nama yang dimasukan sudah sesuai dengan ketentuan
 	public Boolean checkName(String name) {
 		if(name.isEmpty()) {
 			return false;
@@ -164,6 +180,7 @@ public class EmployeeHandler extends Controller{
 		return true;
 	}
 	
+	//Method untuk mengecek apakah DateOfBirth yang dimasukan sudah sesuai ketentuan
 	public Boolean checkDOB(String dob) {
 		if(dob.isEmpty()) {
 			return false;
@@ -177,6 +194,7 @@ public class EmployeeHandler extends Controller{
 		return true;
 	}
 	
+	//method untuk mengecek apakah roleID yang dipilih terdapat pada database
 	public Boolean checkRole(int id) {
 		if(RoleHandler.getInstance().find(id)==null) {
 			return false;
@@ -184,6 +202,7 @@ public class EmployeeHandler extends Controller{
 		return true;
 	}
 	
+	//method untuk mengecek apakah gaji/salary yang dimasukan sudah sesuai ketentuan
 	public Boolean checkSalary(String salary) {
 		if(salary.isEmpty()) {
 			return false;
@@ -197,6 +216,7 @@ public class EmployeeHandler extends Controller{
 		return true;
 	}
 	
+	//Method untuk mengecek dengan menggunakan id apakah sebuah employee terdapat pada database 
 	public Boolean checkEmployeeID(int id) {
 		if(find(id)==null) {
 			return false;
