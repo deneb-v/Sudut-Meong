@@ -13,7 +13,6 @@ import view.MainView;
 public class Main {
 
 	public Main() {
-		// TODO Auto-generated constructor stub
 		MainView.getInstance().setLocationRelativeTo(null);
 		MainView.getInstance().setVisible(true);
 	}

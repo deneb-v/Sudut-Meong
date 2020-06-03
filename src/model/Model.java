@@ -29,11 +29,11 @@ public abstract class Model {
 	
 	public abstract Model convData(ResultSet rawData);
 	
+	//method untuk mengambil semua data dari database berdasarkan tablenya 
 	public List<Model> getData(String table){
 		PreparedStatement query = db.prepareStatement("SELECT * FROM "+table);
 		
 		try {
-//			System.out.println(query);
 			ResultSet rawData = query.executeQuery();
 			List<Model> data  = new Vector<>();
 			while(rawData.next()) {

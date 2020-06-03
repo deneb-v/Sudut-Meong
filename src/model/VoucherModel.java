@@ -34,19 +34,19 @@ public class VoucherModel extends Model{
 	}
 
 	public VoucherModel() {
-		// TODO Auto-generated constructor stub
 	}
 
+	//method untuk mengubah data yang diambil dari database yaitu dari Object ResultSet menjadi Object Voucher
 	@Override
 	public Model convData(ResultSet rawData) {
 		try {
 			return new VoucherModel(rawData.getInt("id"), rawData.getFloat("discount"), rawData.getDate("validDate"), rawData.getString("status"));
 		} catch (SQLException e) {
-//			e.printStackTrace();
 			return null;
 		}
 	}
 
+	//method untuk menambahkan data kedalam database
 	@Override
 	public Model insertData() {
 		PreparedStatement query = db.prepareStatement("INSERT INTO Voucher(discount,validDate,status) VALUES(?,?,?)");
@@ -67,6 +67,7 @@ public class VoucherModel extends Model{
 		}
 	}
 
+	//method untuk mengupdate data baru kedalam database
 	@Override
 	public Model updateData() {
 		PreparedStatement query = db.prepareStatement("UPDATE Voucher SET discount=?,validDate=? WHERE id=? ");
@@ -81,6 +82,7 @@ public class VoucherModel extends Model{
 		}
 	}
 	
+	//method untuk mengubah status voucher yang ada pada database menjadi "used"
 	public void useVoucher(int id) {
 		PreparedStatement query = db.prepareStatement("UPDATE Voucher SET status=? WHERE id=?");
 		try {
@@ -92,6 +94,7 @@ public class VoucherModel extends Model{
 		}
 	}
 
+	//method untuk menghapus data voucher dari database
 	@Override
 	public Boolean deleteData() {
 		PreparedStatement query = db.prepareStatement("DELETE FROM Voucher WHERE id=?");
@@ -104,13 +107,13 @@ public class VoucherModel extends Model{
 		}		
 	}
 
+	//method untuk mencari data voucher yang ada pada database berdasarkan id-nya
 	@Override
 	public Model findData(int id) {
 		PreparedStatement query = db.prepareStatement("SELECT * FROM Voucher WHERE id=?");
 		try {
 			query.setInt(1, id);
 			ResultSet res = query.executeQuery();
-//			System.out.println(res);
 			res.next();
 			return convData(res);
 		} catch (SQLException e) {

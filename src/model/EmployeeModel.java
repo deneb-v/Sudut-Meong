@@ -26,8 +26,6 @@ public class EmployeeModel extends Model {
 		this.password = password;
 	}
 	
-	
-
 	public EmployeeModel(int roleID, String name, String username, Date dOB, int salary, String status, String password) {
 		this.roleID = roleID;
 		this.name = name;
@@ -37,10 +35,6 @@ public class EmployeeModel extends Model {
 		this.status = status;
 		this.password = password;
 	}
-	
-	
-
-
 
 	public EmployeeModel(int id, int roleID, String name, String username, Date dOB, int salary) {
 		super(id);
@@ -54,9 +48,9 @@ public class EmployeeModel extends Model {
 
 
 	public EmployeeModel() {
-		// TODO Auto-generated constructor stub
 	}
 
+	//method untuk mengubah data yang diambil dari database yaitu Object ResultSet menjadi Object Employee
 	@Override
 	public Model convData(ResultSet rawData) {
 		try {
@@ -73,6 +67,7 @@ public class EmployeeModel extends Model {
 		}
 	}
 
+	//method untuk menambahkan data kedalam database
 	@Override
 	public Model insertData() {
 		PreparedStatement query = db.prepareStatement("INSERT INTO Employee(roleID,name,username,password,DOB,salary,status) VALUES(?,?,?,?,?,?,?)");
@@ -98,6 +93,7 @@ public class EmployeeModel extends Model {
 		}
 	}
 
+	//method untuk mengupdate data baru kedalam database
 	@Override
 	public Model updateData() {
 		PreparedStatement query = db.prepareStatement("UPDATE Employee SET name=?, username=?, DOB=?, salary=?  WHERE id=? ");
@@ -114,6 +110,7 @@ public class EmployeeModel extends Model {
 		}
 	}
 	
+	//method untuk mengupdate data password baru kedalam database
 	public Model resetPassword() {
 		PreparedStatement query = db.prepareStatement("UPDATE Employee SET password=? WHERE id=?");
 		try {
@@ -126,6 +123,7 @@ public class EmployeeModel extends Model {
 		}
 	}
 	
+	//method untuk mengupdate status Employee menjadi "Fired" ke dalam database
 	public Model fireEmployee() {
 		PreparedStatement query = db.prepareStatement("UPDATE Employee SET status=? WHERE id=?");
 		try {
@@ -138,6 +136,7 @@ public class EmployeeModel extends Model {
 		}
 	}
 
+	//method untuk menghapus data employee dari database
 	@Override
 	public Boolean deleteData() {
 		PreparedStatement query = db.prepareStatement("DELETE FROM Employee WHERE id=?");
@@ -150,6 +149,7 @@ public class EmployeeModel extends Model {
 		}
 	}
 
+	//method untuk mencari data employee yang ada pada database berdasarkan id-nya 
 	@Override
 	public Model findData(int id) {
 		PreparedStatement query = db.prepareStatement("SELECT * FROM Employee WHERE id=?");
@@ -163,6 +163,7 @@ public class EmployeeModel extends Model {
 		}
 	}
 	
+	//method untuk mengambil data employee dari database yang melakukan login dengan menggunakan username dan password
 	public Model login(String username, String password) {
 		PreparedStatement query = db.prepareStatement("SELECT*FROM Employee WHERE username=? AND password=? AND status='Employed'");
 		try {

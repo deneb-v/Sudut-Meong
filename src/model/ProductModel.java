@@ -40,9 +40,9 @@ public class ProductModel extends Model{
 
 
 	public ProductModel() {
-		// TODO Auto-generated constructor stub
 	}
-
+	
+	//method untuk mengubah data yang diambil dari database yaitu Object ResultSet menjadi Object Product
 	@Override
 	public Model convData(ResultSet rawData) {
 		try {
@@ -56,6 +56,7 @@ public class ProductModel extends Model{
 		}
 	}
 
+	//method untuk menambahkan data kedalam database
 	@Override
 	public Model insertData() {
 		PreparedStatement query = db.prepareStatement("INSERT INTO Product(name, description, price , stock) VALUES(?,?,?,?)");
@@ -77,6 +78,7 @@ public class ProductModel extends Model{
 		}
 	}
 
+	//method untuk mengupdate data baru kedalam database
 	@Override
 	public Model updateData() {
 		PreparedStatement query = db.prepareStatement("UPDATE Product SET name=?, description=?, price=?, stock=? WHERE id=? ");
@@ -94,6 +96,7 @@ public class ProductModel extends Model{
 		}
 	}
 
+	//method untuk menghapus data product dari database
 	@Override
 	public Boolean deleteData() {
 		PreparedStatement query = db.prepareStatement("DELETE FROM Product WHERE id=?");
@@ -106,6 +109,7 @@ public class ProductModel extends Model{
 		}
 	}
 
+	//method untuk mencari data product yang ada pada database berdasarkan id-nya
 	@Override
 	public Model findData(int id) {
 		PreparedStatement query = db.prepareStatement("SELECT * FROM Product WHERE id=?");

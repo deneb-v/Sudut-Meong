@@ -85,6 +85,7 @@ public class TransactionModel extends Model{
 	public TransactionModel() {
 	}
 
+	//method untuk mengubah data yang diambil dari database yaitu dari Object ResultSet menjadi Object Transaction
 	@Override
 	public Model convData(ResultSet rawData) {
 		try {
@@ -99,6 +100,7 @@ public class TransactionModel extends Model{
 		}
 	}
 
+	//method untuk menambahkan data kedalam database
 	@Override
 	public Model insertData() {
 		PreparedStatement query = db.prepareStatement("INSERT INTO `Transaction`(purchase_datetime,voucherID,employeeID,paymentType) VALUES(?,?,?,?) ");
@@ -126,6 +128,7 @@ public class TransactionModel extends Model{
 		}
 	}
 
+	//method untuk mengupdate data baru kedalam database
 	@Override
 	public Model updateData() {
 		PreparedStatement query = db.prepareStatement("UPDATE `Transaction` SET purchase_datetime=?, voucherID=?, employeeID=?, paymentType=? WHERE id=? ");
@@ -142,6 +145,7 @@ public class TransactionModel extends Model{
 		}
 	}
 
+	//method untuk menghapus data transaksi dari database
 	@Override
 	public Boolean deleteData() {
 		PreparedStatement query = db.prepareStatement("DELETE FROM `Transaction` WHERE id=?");
@@ -154,6 +158,7 @@ public class TransactionModel extends Model{
 		}
 	}
 
+	//method untuk mencari data transaksi yang ada pada database berdasarkan id-nya
 	@Override
 	public Model findData(int id) {
 		PreparedStatement query = db.prepareStatement("SELECT * FROM `Transaction` WHERE id=?");
@@ -165,7 +170,7 @@ public class TransactionModel extends Model{
 		}
 	}
 
-	
+	//method untuk mengambil data transaksi yang ada pada database berdasarkan bulan dan tahun
 	public List<TransactionModel> getTransactionReport(int month, int year){
 		PreparedStatement query = db.prepareStatement("SELECT * FROM `Transaction` WHERE YEAR(purchase_datetime) = ? AND MONTH(purchase_datetime) = ?");
 		try {

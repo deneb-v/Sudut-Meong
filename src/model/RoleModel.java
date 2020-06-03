@@ -20,16 +20,17 @@ public class RoleModel extends Model{
 		this.name = name;
 	}
 
+	//method untuk mengubah data yang diambil dari database, yaitu dari Object ResultSet menjadi Object Role
 	@Override
 	public Model convData(ResultSet rawData) {
 		try {
 			return new RoleModel(rawData.getInt("id"), rawData.getString("name"));
 		} catch (SQLException e) {
-//			e.printStackTrace();
 			return null;
 		}
 	}
 
+	//method untuk menambahkan data kedalam database
 	@Override
 	public Model insertData() {
 		PreparedStatement query = db.prepareStatement("INSERT INTO Role(id,name) VALUES(?,?) ");
@@ -46,6 +47,7 @@ public class RoleModel extends Model{
 		}
 	}
 
+	//method untuk mengupdate data baru kedalam database
 	@Override
 	public Model updateData() {
 		PreparedStatement query = db.prepareStatement("UPDATE Role SET name=? WHERE id=? ");
@@ -59,6 +61,7 @@ public class RoleModel extends Model{
 		}
 	}
 
+	//method untuk menghapus data Role dari database
 	@Override
 	public Boolean deleteData() {
 		PreparedStatement query = db.prepareStatement("DELETE FROM Role WHERE id=?");
@@ -71,6 +74,7 @@ public class RoleModel extends Model{
 		}
 	}
 
+	//method untuk mencari data role yang ada pada database berdasarkan id-nya
 	@Override
 	public Model findData(int id) {
 		PreparedStatement query = db.prepareStatement("SELECT * FROM Role WHERE id=?");

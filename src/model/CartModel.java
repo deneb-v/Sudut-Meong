@@ -8,8 +8,6 @@ public class CartModel {
 	private ProductModel product;
 	private int quantity;
 	
-	
-	
 	public CartModel(ProductModel product, int quantity) {
 		super();
 		this.product = product;

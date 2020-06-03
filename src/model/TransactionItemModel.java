@@ -47,6 +47,7 @@ public class TransactionItemModel extends Model{
 	public TransactionItemModel() {
 	}
 
+	//method untuk mengubah data yang diambil dari database, yaitu dari Object ResultSet menjadi Object TransactionItem
 	@Override
 	public Model convData(ResultSet rawData) {
 		try {
@@ -59,6 +60,7 @@ public class TransactionItemModel extends Model{
 		}
 	}
 
+	//method untuk menambahkan data kedalam database
 	@Override
 	public Model insertData() {
 		PreparedStatement query = db.prepareStatement("INSERT INTO TransactionItem(transactionID,productID,quantity) VALUES(?,?,?) ");
@@ -79,6 +81,7 @@ public class TransactionItemModel extends Model{
 		}
 	}
 
+	//method untuk mengupdate data baru kedalam database
 	@Override
 	public Model updateData() {
 		PreparedStatement query = db.prepareStatement("UPDATE TransactionItem SET transactionID=?, productID, quantity=? WHERE id=? ");
@@ -93,6 +96,7 @@ public class TransactionItemModel extends Model{
 		}
 	}
 
+	//method untuk menghapus data detail transaction dari database
 	@Override
 	public Boolean deleteData() {
 		PreparedStatement query = db.prepareStatement("DELETE FROM TransactionItem WHERE transactionID=?");
@@ -107,9 +111,11 @@ public class TransactionItemModel extends Model{
 
 	@Override
 	public Model findData(int id) {
+		//method ini digantikan dengan method getTransactionDetail
 		return null;
 	}
 	
+	//method untuk mengambil data detail transaksi dari database
 	public List<TransactionItemModel> getTransactionDetail(int transactionID){
 		PreparedStatement query = db.prepareStatement("SELECT * FROM TransactionItem WHERE transactionID=?");
 		try {
