@@ -55,7 +55,6 @@ public class CashierInternalView extends JInternalFrame implements ActionListene
 	}
 
 	private CashierInternalView() {
-		// TODO Auto-generated constructor stub
 		setBounds(0, 0, 546, 407);
 		getContentPane().setLayout(null);
 		setTitle("Cashier - Cart");
@@ -127,7 +126,8 @@ public class CashierInternalView extends JInternalFrame implements ActionListene
 		btn_checkOut.addActionListener(this);
 		txt_productID.getDocument().addDocumentListener(this);
 	}
-	
+
+	//method untuk validasi sebelum menambahkan barang kedalam item
 	private Boolean validateAdd(String id, String quantity) {
 		CartHandler controller = CartHandler.getInstance();
 		if(!controller.checkID(id)) {
@@ -141,6 +141,7 @@ public class CashierInternalView extends JInternalFrame implements ActionListene
 		return true;
 	}
 	
+	//method untuk mengambil data dari database dan mengisi JTable dengan data tersebut
 	private void fillTable() {
 		List<CartModel> data = CartHandler.getInstance().getCartList();
 		Vector<String> tableColumn = new Vector<String>();
@@ -170,6 +171,7 @@ public class CashierInternalView extends JInternalFrame implements ActionListene
 		tbl_cart.setModel(model);
 	}
 	
+	//method untuk mengembalikan tampilan ke tampilan awal dan mengisi ulang JTable dengan data terbaru
 	public void reset() {
 		txt_productID.setText("");
 		txt_quantity.setText("");
@@ -178,10 +180,10 @@ public class CashierInternalView extends JInternalFrame implements ActionListene
 		btn_checkOut.setEnabled(false);
 	}
 
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btn_addCart) {
+			//jika tombol add to cart ditekan
 			CartHandler controller = CartHandler.getInstance();
 			String id = txt_productID.getText();
 			String quantity = txt_quantity.getText();
@@ -201,6 +203,7 @@ public class CashierInternalView extends JInternalFrame implements ActionListene
 		}
 		
 		if(e.getSource() == btn_checkOut) {
+			//jika tombol check out ditekan
 			MainView.getInstance().openCheckoutFrame();
 			System.out.println(CartHandler.getInstance());
 		}
@@ -209,6 +212,7 @@ public class CashierInternalView extends JInternalFrame implements ActionListene
 	@Override
 	public void insertUpdate(DocumentEvent e) {
 		if(e.getDocument() == txt_productID.getDocument()) {
+			//jika ada karakter yang dimasukan kedalam textfield ID
 			if(!txt_productID.getText().isEmpty()) {				
 				ProductModel item = (ProductModel) ProductHandler.getInstance().find(Integer.parseInt(txt_productID.getText()));
 				if(item!=null) {
@@ -227,6 +231,7 @@ public class CashierInternalView extends JInternalFrame implements ActionListene
 	@Override
 	public void removeUpdate(DocumentEvent e) {
 		if(e.getDocument() == txt_productID.getDocument()) {
+			//jika ada karakter yang dihapus kedalam textfield ID
 			if(!txt_productID.getText().isEmpty()) {				
 				ProductModel item = (ProductModel) ProductHandler.getInstance().find(Integer.parseInt(txt_productID.getText()));
 				if(item!=null) {
@@ -244,10 +249,7 @@ public class CashierInternalView extends JInternalFrame implements ActionListene
 
 	@Override
 	public void changedUpdate(DocumentEvent e) {
-		// TODO Auto-generated method stub
-		if(e.getDocument() == txt_productID.getDocument()) {
-			System.out.println("Change "+txt_productID.getText());
-		}
+
 	}
 
 	

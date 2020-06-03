@@ -372,6 +372,7 @@ public class ManagerInternalView extends JInternalFrame implements ActionListene
 		tbl_data.addMouseListener(this);
 	}
 	
+	//method untuk mengambil data dari database dan mengisi table laporan transaksi dengan data tersebut
 	private void fillReportTable(JTable table, List<TransactionModel> data) {
 		Vector<String> tableColumn = new Vector<String>();
 		tableColumn.add("Transaction ID");
@@ -404,6 +405,7 @@ public class ManagerInternalView extends JInternalFrame implements ActionListene
 		table.setModel(model);
 	}
 	
+	//method untuk mengambil data dari database dan mengisi table laporan detail transaksi dengan data tersebut
 	private void fillReportDetailTable(JTable table, List<TransactionItemModel> data) {
 		Vector<String> tableColumn = new Vector<String>();
 		tableColumn.add("Transaction ID");
@@ -437,6 +439,7 @@ public class ManagerInternalView extends JInternalFrame implements ActionListene
 	public void actionPerformed(ActionEvent e) {
 		//Manager report menu action
 		if(e.getSource() == btn_report) {
+			//jika tombol generate report ditekan
 			TransactionHandler transactionController = TransactionHandler.getInstance();
 			
 			if(cb_repMonth.getSelectedIndex()==0||cb_repYear.getSelectedIndex()==0) {
@@ -454,6 +457,7 @@ public class ManagerInternalView extends JInternalFrame implements ActionListene
 		
 		//Employee management menu action
 		if(e.getSource() == btn_insert) {
+			//jika tombol insert ditekan
 			EmployeeHandler employeeController = EmployeeHandler.getInstance();
 			int roleID = cb_role.getSelectedIndex();
 			String name = txt_name.getText();
@@ -480,6 +484,7 @@ public class ManagerInternalView extends JInternalFrame implements ActionListene
 		}
 		
 		if(e.getSource() == btn_update) {
+			//jika tombol update ditekan
 			EmployeeHandler employeeController = EmployeeHandler.getInstance();
 			int employeeID = Integer.parseInt(cb_updID.getSelectedItem().toString());
 			int roleID = cb_updRole.getSelectedIndex();
@@ -506,6 +511,7 @@ public class ManagerInternalView extends JInternalFrame implements ActionListene
 		}
 		
 		if(e.getSource() == btn_delete) {
+			//jika tombol delete ditekan
 			EmployeeHandler employeeController = EmployeeHandler.getInstance();
 			int employeeID = Integer.parseInt(cb_delID.getSelectedItem().toString());
 			int confirm = JOptionPane.showConfirmDialog(this, "Fire this employee?");
@@ -528,15 +534,18 @@ public class ManagerInternalView extends JInternalFrame implements ActionListene
 		}
 		
 		if(e.getSource() == cb_delID) {
+			//jika ada perubahan pilihan pada comboBox id pada menu delete
 			refreshCombo(cb_delID,txt_delName,txt_delDOB,txt_delUsername,txt_delRole,txt_delSalary);
 		}
 		
 		if(e.getSource() == cb_updID) {
+			//jika ada perubahan pilihan pada comboBox id pada menu update
 			refreshCombo(cb_updID, txt_updName, cb_updDate, cb_updMonth, cb_updYear, txt_updUsername, cb_updRole, txt_updSalary);
 		}
 		
 	}
 	
+	//method untuk validasi data employee baru pada saat insert employee
 	private Boolean validateInsert(String name, String username, String dob, String salary, int roleID) {
 		if(EmployeeHandler.getInstance().checkName(name)==false) {
 			JOptionPane.showMessageDialog(this, "Name cannot be empty!");
@@ -561,6 +570,7 @@ public class ManagerInternalView extends JInternalFrame implements ActionListene
 		return true;
 	}
 	
+	//method untuk validasi data employee baru pada saat melakukan update employee
 	private Boolean validateUpdate(int employeeId,String name, String username, String dob, String salary, int roleID) {
 		if(EmployeeHandler.getInstance().checkEmployeeID(employeeId)==false) {
 			JOptionPane.showMessageDialog(this, "Employee ID cannot be empty and must be exist!");
@@ -589,6 +599,7 @@ public class ManagerInternalView extends JInternalFrame implements ActionListene
 		return true;
 	}
 
+	//method untuk validasi data id employee yang akan dihapus atau dipecat
 	private Boolean validateDelete(int employeeId) {
 		if(EmployeeHandler.getInstance().checkEmployeeID(employeeId)==false) {
 			JOptionPane.showMessageDialog(this, "Employee ID cannot be empty and must be exist!");
@@ -597,6 +608,7 @@ public class ManagerInternalView extends JInternalFrame implements ActionListene
 		return true;
 	}
 	
+	//method untuk mengisi comboBox dengan id employee yang ada
 	private void fillIdComboBox(JComboBox cb) {
 		List<Model> data = EmployeeHandler.getInstance().getAllData();
 		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>();
@@ -606,6 +618,7 @@ public class ManagerInternalView extends JInternalFrame implements ActionListene
 		cb.setModel(model);
 	}
 	
+	//method untuk mengisi comboBox dengan role yang ada 
 	private void fillRoleComboBox(JComboBox cb) {
 		List<Model> data = RoleHandler.getInstance().getAllData();
 		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>();
@@ -616,6 +629,7 @@ public class ManagerInternalView extends JInternalFrame implements ActionListene
 		cb.setModel(model);
 	}
 	
+	//method untuk mengambil data dari database dan mengisi table employee dengan data tersebut
 	private void fillEmployeeTable(JTable table) {
 		List<Model> data = EmployeeHandler.getInstance().getAllData();
 		Vector<String> tableColumn = new Vector<String>();
@@ -651,6 +665,7 @@ public class ManagerInternalView extends JInternalFrame implements ActionListene
 		table.setModel(model);
 	}
 
+	//method untuk melakukan update isi pada textfield yang ada pada menu update jika ada perubahan pada comboBox id pada menu update
 	private void refreshCombo(JComboBox cb, JTextField txt_name, JComboBox cb_Date, JComboBox cb_Month, JComboBox cb_Year, JTextField txt_username, JComboBox cb_role, JTextField txt_salary) {
 		int id = Integer.parseInt(cb.getSelectedItem().toString());
 		Model data = EmployeeHandler.getInstance().find(id);
@@ -669,6 +684,7 @@ public class ManagerInternalView extends JInternalFrame implements ActionListene
 		cb_Year.setSelectedItem(Integer.toString(cal.get(Calendar.YEAR)));
 	}
 	
+	//method untuk melakukan update isi pada textfield yang ada pada menu fire/pecat jika ada perubahan pada comboBox id pada menu fire/pecat
 	private void refreshCombo(JComboBox cb, JTextField txt_name, JTextField txt_date, JTextField txt_username, JTextField txt_role, JTextField txt_salary) {
 		int id = Integer.parseInt(cb.getSelectedItem().toString());
 		Model data = EmployeeHandler.getInstance().find(id);
@@ -681,17 +697,11 @@ public class ManagerInternalView extends JInternalFrame implements ActionListene
 		RoleModel role = (RoleModel) RoleHandler.getInstance().find(((EmployeeModel)data).getRoleID());
 		txt_role.setText(role.getName());
 	}
-	
-	private void refreshCombo(JComboBox cb, JTextField txt_username) {
-		int id = Integer.parseInt(cb.getSelectedItem().toString());
-		Model data = EmployeeHandler.getInstance().find(id);
-		txt_username.setText(((EmployeeModel)data).getUsername());
-
-	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(e.getClickCount()==2) {
+			//jika ada double click pada table laporan transaksi
 			tbl_data.getSelectedRow();
 			TableModel model = tbl_data.getModel();
 			int id = Integer.parseInt(model.getValueAt(tbl_data.getSelectedRow(), 0).toString());
@@ -702,7 +712,6 @@ public class ManagerInternalView extends JInternalFrame implements ActionListene
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 

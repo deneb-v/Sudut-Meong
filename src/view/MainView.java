@@ -35,42 +35,51 @@ public class MainView extends View{
 	private ManagerInternalView managerView;
 	private CashierInternalView cashierView;
 	
+	//method untuk membuka JInternalFrame
 	private void openInternalFrame(JInternalFrame frame) {
 	    Dimension jInternalFrameSize = frame.getSize();
 	    int width = (900 - jInternalFrameSize.width) / 2;
 	    frame.setLocation(width, 0);
 	    frame.setVisible(true);
 	}
-
+	
+	//method untuk membuka InternalFrame CheckOut
 	public void openCheckoutFrame() {
 		checkOutView.refresh();
 		openInternalFrame(checkOutView);
 	}
 	
+	//method untuk membuka InternalFrame Login
 	public void openLoginFrame() {
 		openInternalFrame(loginView);
 	}
 	
+	//method untuk membuka InternalFrame HumanResource
 	public void openHrView() {
 		openInternalFrame(hrView);
 	}
 	
+	//method untuk membuka InternalFrame Manager
 	public void openManagerView() {
 		openInternalFrame(managerView);
 	}
 	
+	//method untuk membuka InternalFrame Promo
 	public void openPromoView() {
 		openInternalFrame(promoView);
 	}
 	
+	//method untuk membuka InternalFrame Storage
 	public void openStorageView() {
 		openInternalFrame(storageView);
 	}
 	
+	//method untuk membuka InternalFrame cashier
 	public void openCashierView() {
 		openInternalFrame(cashierView);
 	}
 	
+	//method untuk menambahkan internalFrame kedalam JDesktopPane
 	private void addInternalFrame() {
 		desktopPane.add(loginView);
 		desktopPane.add(promoView);

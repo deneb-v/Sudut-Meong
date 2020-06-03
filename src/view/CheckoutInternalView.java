@@ -119,6 +119,7 @@ public class CheckoutInternalView extends JInternalFrame implements ActionListen
 		refresh();
 	}
 	
+	//method untuk mengambil data dari database dan mengisi JTable dengan data tersebut
 	private void fillTable() {
 		List<CartModel> data = CartHandler.getInstance().getCartList();
 		System.out.println(CartHandler.getInstance());
@@ -133,7 +134,7 @@ public class CheckoutInternalView extends JInternalFrame implements ActionListen
 		    {
 		      return false;
 		    }
-		};;
+		};
 		for (CartModel d : data) {
 			Vector<Object> e = new Vector<Object>();
 			ProductModel item = d.getProduct();
@@ -150,6 +151,7 @@ public class CheckoutInternalView extends JInternalFrame implements ActionListen
 		tbl_data.setModel(model);
 	}
 
+	//method untuk mengembalikan tampilan ke tampilan awal dan mengisi ulang JTable dengan data terbaru
 	public void refresh() {
 		fillTable();
 		
@@ -164,6 +166,7 @@ public class CheckoutInternalView extends JInternalFrame implements ActionListen
 		txt_custMoney.setText("");
 	}
 	
+	//method untuk validasi voucher pada saat melakukan apply voucher
 	private Boolean validateApplyVoucher(String id) {
 		if(!TransactionHandler.getInstance().checkVoucher(id)) {
 			JOptionPane.showMessageDialog(this, "Voucher must be not used before and must be used before the valid date!");
@@ -172,6 +175,7 @@ public class CheckoutInternalView extends JInternalFrame implements ActionListen
 		return true;
 	}
 	
+	//method untuk validasi data transaksi pada saat melakukan checkout dengan menggunakan voucher
 	private Boolean validateCheckout(String paymentMethod, String voucherID, String money) {
 		if(!TransactionHandler.getInstance().checkVoucher(voucherID)) {
 			JOptionPane.showMessageDialog(this, "Voucher must be not used before and must be used before the valid date!");
@@ -188,6 +192,7 @@ public class CheckoutInternalView extends JInternalFrame implements ActionListen
 		return true;
 	}
 	
+	//method untuk validasi data transaksi pada saat melakukan checkout
 	private Boolean validateCheckout(String paymentMethod, String money) {
 		if(!TransactionHandler.getInstance().checkPaymentMethod(paymentMethod)) {
 			JOptionPane.showMessageDialog(this, "Payment method must be used!");
@@ -203,12 +208,14 @@ public class CheckoutInternalView extends JInternalFrame implements ActionListen
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btn_applyVoucher) {
+			//jika tombol apply voucher ditekan
 			if(validateApplyVoucher(txt_voucher.getText())) {				
 				refresh();
 			}
 		}
 		
 		if(e.getSource() == btn_pay) {
+			//jika tombol pay ditekan
 			String paymentMethod = cb_paymentMethod.getSelectedItem().toString();
 			String voucherID = txt_voucher.getText();
 			int employeeID = EmployeeHandler.getInstance().getOnLog().getId();
@@ -238,6 +245,7 @@ public class CheckoutInternalView extends JInternalFrame implements ActionListen
 		}
 		
 		if(e.getSource() == chk_voucher) {
+			//jika ada perubahan pada checkbox voucher
 			System.out.println(chk_voucher.isSelected());
 			if(chk_voucher.isSelected()) {				
 				txt_voucher.setEditable(true);

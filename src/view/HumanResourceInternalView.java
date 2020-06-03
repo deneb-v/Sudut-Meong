@@ -355,6 +355,7 @@ public class HumanResourceInternalView extends JInternalFrame implements ActionL
 		btn_resetPass.addActionListener(this);
 	}
 	
+	//method untuk validasi data employee pada saat melakukan insert emplouee
 	private Boolean validateInsert(String name, String username, String dob, String salary, int roleID) {
 		if(EmployeeHandler.getInstance().checkName(name)==false) {
 			JOptionPane.showMessageDialog(this, "Name cannot be empty!");
@@ -379,6 +380,7 @@ public class HumanResourceInternalView extends JInternalFrame implements ActionL
 		return true;
 	}
 	
+	//method untuk validasi data employee baru pada saat melakukan update employee
 	private Boolean validateUpdate(int employeeId,String name, String username, String dob, String salary, int roleID) {
 		if(EmployeeHandler.getInstance().checkEmployeeID(employeeId)==false) {
 			JOptionPane.showMessageDialog(this, "Employee ID cannot be empty and must be exist!");
@@ -407,6 +409,7 @@ public class HumanResourceInternalView extends JInternalFrame implements ActionL
 		return true;
 	}
 
+	//method untuk validasi data id employee yang akan dihapus atau dipecat
 	private Boolean validateDelete(int employeeId) {
 		if(EmployeeHandler.getInstance().checkEmployeeID(employeeId)==false) {
 			JOptionPane.showMessageDialog(this, "Employee ID cannot be empty and must be exist!");
@@ -418,6 +421,7 @@ public class HumanResourceInternalView extends JInternalFrame implements ActionL
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btn_insert) {
+			//jika tombol insert ditekan
 			EmployeeHandler employeeController = EmployeeHandler.getInstance();
 			int roleID = cb_role.getSelectedIndex();
 			String name = txt_name.getText();
@@ -446,6 +450,7 @@ public class HumanResourceInternalView extends JInternalFrame implements ActionL
 		}
 		
 		if(e.getSource() == btn_update) {
+			//jika tombol update ditekan
 			EmployeeHandler employeeController = EmployeeHandler.getInstance();
 			int employeeID = Integer.parseInt(cb_updID.getSelectedItem().toString());
 			int roleID = cb_updRole.getSelectedIndex();
@@ -474,6 +479,7 @@ public class HumanResourceInternalView extends JInternalFrame implements ActionL
 		}
 		
 		if(e.getSource() == btn_delete) {
+			//jika tombol delete ditekan
 			EmployeeHandler employeeController = EmployeeHandler.getInstance();
 			int employeeID = Integer.parseInt(cb_delID.getSelectedItem().toString());
 			int confirm = JOptionPane.showConfirmDialog(this, "Fire this employee?");
@@ -498,6 +504,7 @@ public class HumanResourceInternalView extends JInternalFrame implements ActionL
 		}
 		
 		if(e.getSource() == btn_resetPass) {
+			//jika tombol reset password ditekan
 			EmployeeHandler employeeController = EmployeeHandler.getInstance();
 			int id = Integer.parseInt(cb_resID.getSelectedItem().toString());
 			int confirm = JOptionPane.showConfirmDialog(this, "Reset password?");
@@ -516,19 +523,23 @@ public class HumanResourceInternalView extends JInternalFrame implements ActionL
 		}
 		
 		if(e.getSource() == cb_delID) {
+			//jika ada perubahan pilihan pada combobox id untuk menu delete
 			refreshCombo(cb_delID,txt_delName,txt_delDOB,txt_delUsername,txt_delRole,txt_delSalary);
 		}
 		
 		if(e.getSource() == cb_updID) {
+			//jika ada perubahan pilihan pada combobox id untuk menu update
 			refreshCombo(cb_updID, txt_updName, cb_updDate, cb_updMonth, cb_updYear, txt_updUsername, cb_updRole, txt_updSalary);
 		}
 		
 		if(e.getSource() == cb_resID) {
+			//jika ada perubahan pilihan pada combobox id untuk menu reset password
 			refreshCombo(cb_resID, txt_resUsername);
 		}
 		
 	}
 	
+	//method untuk mengisi comboBox dengan id employee yang ada
 	private void fillIdComboBox(JComboBox cb) {
 		List<Model> data = EmployeeHandler.getInstance().getAllData();
 		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>();
@@ -538,6 +549,7 @@ public class HumanResourceInternalView extends JInternalFrame implements ActionL
 		cb.setModel(model);
 	}
 	
+	//method untuk mengisi comboBox dengan role yang ada 
 	private void fillRoleComboBox(JComboBox cb) {
 		List<Model> data = RoleHandler.getInstance().getAllData();
 		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>();
@@ -548,6 +560,7 @@ public class HumanResourceInternalView extends JInternalFrame implements ActionL
 		cb.setModel(model);
 	}
 	
+	//method untuk mengambil data dari database dan mengisi JTable dengan data tersebut
 	private void fillTable(JTable table) {
 		List<Model> data = EmployeeHandler.getInstance().getAllData();
 		Vector<String> tableColumn = new Vector<String>();
@@ -578,6 +591,7 @@ public class HumanResourceInternalView extends JInternalFrame implements ActionL
 		table.setModel(model);
 	}
 
+	//method untuk melakukan update isi pada textfield yang ada pada menu update jika ada perubahan pada comboBox id pada menu update
 	private void refreshCombo(JComboBox cb, JTextField txt_name, JComboBox cb_Date, JComboBox cb_Month, JComboBox cb_Year, JTextField txt_username, JComboBox cb_role, JTextField txt_salary) {
 		int id = Integer.parseInt(cb.getSelectedItem().toString());
 		Model data = EmployeeHandler.getInstance().find(id);
@@ -596,6 +610,7 @@ public class HumanResourceInternalView extends JInternalFrame implements ActionL
 		cb_Year.setSelectedItem(Integer.toString(cal.get(Calendar.YEAR)));
 	}
 	
+	//method untuk melakukan update isi pada textfield yang ada pada menu fire/pecat jika ada perubahan pada comboBox id pada menu fire/pecat
 	private void refreshCombo(JComboBox cb, JTextField txt_name, JTextField txt_date, JTextField txt_username, JTextField txt_role, JTextField txt_salary) {
 		int id = Integer.parseInt(cb.getSelectedItem().toString());
 		Model data = EmployeeHandler.getInstance().find(id);
@@ -609,6 +624,7 @@ public class HumanResourceInternalView extends JInternalFrame implements ActionL
 		txt_role.setText(role.getName());
 	}
 	
+	//method untuk melakukan update isi pada textfield yang ada pada menu reset password jika ada perubahan pada comboBox id pada menu reset password
 	private void refreshCombo(JComboBox cb, JTextField txt_username) {
 		int id = Integer.parseInt(cb.getSelectedItem().toString());
 		Model data = EmployeeHandler.getInstance().find(id);

@@ -213,6 +213,7 @@ public class PromoManagementInternalView extends JInternalFrame implements Actio
 		refreshCombo(cb_delID, txt_delDiscount, txt_delDate);
 	}
 	
+	//method untuk mengambil data dari database dan mengisi JTable dengan data tersebut
 	private void fillTable(JTable table) {
 		List<Model> data = VoucherHandler.getInstance().getAllData();
 		Vector<String> tableColumn = new Vector<String>();
@@ -241,6 +242,7 @@ public class PromoManagementInternalView extends JInternalFrame implements Actio
 		table.setModel(model);
 	}
 	
+	//method untuk validasi data voucher pada saat insert voucher
 	private Boolean validateInsert(String discount, String date) {
 		VoucherHandler controller = VoucherHandler.getInstance();
 		if(controller.checkDiscount(discount)==false) {
@@ -254,6 +256,7 @@ public class PromoManagementInternalView extends JInternalFrame implements Actio
 		return true;
 	}
 	
+	//method untuk validasi data voucher pada saat update voucher
 	private Boolean validateUpdate(int voucherID, String discount, String date) {
 		VoucherHandler controller = VoucherHandler.getInstance();
 		if(controller.checkID(voucherID)) {
@@ -271,6 +274,7 @@ public class PromoManagementInternalView extends JInternalFrame implements Actio
 		return true;
 	}
 	
+	//method untuk validasi data voucher id pada saat delete voucher
 	private Boolean validateDelete(int voucherID) {
 		if(VoucherHandler.getInstance().checkID(voucherID)) {
 			JOptionPane.showMessageDialog(this, "Voucher id must be exist!");
@@ -279,6 +283,7 @@ public class PromoManagementInternalView extends JInternalFrame implements Actio
 		return true;
 	}
 	
+	//method untuk mengisi comboBox dengan id voucher yang ada
 	private void fillIdComboBox(JComboBox cb) {
 		List<Model> data = VoucherHandler.getInstance().getAllData();
 		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>();
@@ -288,6 +293,7 @@ public class PromoManagementInternalView extends JInternalFrame implements Actio
 		cb.setModel(model);
 	}
 	
+	//method untuk melakukan update isi pada textfield yang ada pada menu update jika ada perubahan pada comboBox id pada menu update
 	private void refreshCombo(JComboBox cb, JTextField txt_discount, JComboBox cb_date, JComboBox cb_month, JComboBox cb_year) {
 		int id = Integer.parseInt(cb.getSelectedItem().toString());
 		Model data = VoucherHandler.getInstance().find(id);
@@ -303,6 +309,7 @@ public class PromoManagementInternalView extends JInternalFrame implements Actio
 		cb_year.setSelectedItem(Integer.toString(cal.get(Calendar.YEAR)));
 	}
 	
+	//method untuk melakukan update isi pada textfield yang ada pada menu delete jika ada perubahan pada comboBox id pada menu delete
 	private void refreshCombo(JComboBox cb, JTextField txt_discount, JTextField txt_validDate) {
 		int id = Integer.parseInt(cb.getSelectedItem().toString());
 		Model data = VoucherHandler.getInstance().find(id);
@@ -316,6 +323,7 @@ public class PromoManagementInternalView extends JInternalFrame implements Actio
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==btn_insert) {
+			//jika tombol insert ditekan
 			String discount = txt_discount.getText();
 			String date = cb_year.getSelectedItem().toString();
 			date = date.concat("-"+cb_month.getSelectedIndex());
@@ -337,6 +345,7 @@ public class PromoManagementInternalView extends JInternalFrame implements Actio
 			}
 		}
 		if(e.getSource()==btn_update) {
+			//jika tombol update ditekan
 			int voucherID = Integer.parseInt(cb_updID.getSelectedObjects().toString());
 			String discount = txt_updDiscount.getText();
 			String date = cb_updYear.getSelectedItem().toString();
@@ -358,6 +367,7 @@ public class PromoManagementInternalView extends JInternalFrame implements Actio
 			}
 		}
 		if(e.getSource()==btn_delete) {
+			//jika tombol delete ditekan
 			int voucherID = Integer.parseInt(cb_delID.getSelectedObjects().toString());
 			
 			int confirm = JOptionPane.showConfirmDialog(this, "Delete this voucher?");
@@ -381,9 +391,11 @@ public class PromoManagementInternalView extends JInternalFrame implements Actio
 		}
 		
 		if(e.getSource()==cb_updID) {
+			//jika terjadi perubahan pilihan pada comboBox id pada menu update
 			refreshCombo(cb_updID, txt_updDiscount, cb_updDate, cb_updMonth, cb_updYear);
 		}
 		if(e.getSource()==cb_delID) {
+			//jika terjadi perubahan pilihan pada comboBox id pada menu delete
 			refreshCombo(cb_delID, txt_delDiscount, txt_delDate);
 		}
 	}

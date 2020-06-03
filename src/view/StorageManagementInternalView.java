@@ -328,6 +328,7 @@ public class StorageManagementInternalView extends JInternalFrame implements Act
 		refreshDeleteCombo(cb_delID, txt_delName, txt_delDesc, txt_delPrice, txt_delStock);
 	}
 	
+	//method untuk mengambil data dari database dan mengisi JTable dengan data tersebut
 	private void fillTable(JTable table) {
 		List<Model> data = ProductHandler.getInstance().getAllData();
 		Vector<String> tableColumn = new Vector<String>();
@@ -354,6 +355,7 @@ public class StorageManagementInternalView extends JInternalFrame implements Act
 		table.setModel(model);
 	}
 	
+	//method untuk mengisi comboBox dengan id product yang ada
 	private void fillIdComboBox(JComboBox cb) {
 		List<Model> data = ProductHandler.getInstance().getAllData();
 		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>();
@@ -363,7 +365,7 @@ public class StorageManagementInternalView extends JInternalFrame implements Act
 		cb.setModel(model);
 	}
 
-	
+	//method untuk melakukan update isi pada textfield yang ada pada menu restock jika ada perubahan pada comboBox id pada menu restock
 	private void refreshStkCombo(JComboBox cb, JTextField txt_name, JTextArea txt_desc, JTextField txt_currStock ) {
 		int id = Integer.parseInt(cb.getSelectedItem().toString());
 		Model data = ProductHandler.getInstance().find(id);
@@ -372,6 +374,7 @@ public class StorageManagementInternalView extends JInternalFrame implements Act
 		txt_currStock.setText(Integer.toString(((ProductModel)data).getStock()));
 	}
 	
+	//method untuk melakukan update isi pada textfield yang ada pada menu update jika ada perubahan pada comboBox id pada menu update
 	private void refreshUpdateCombo(JComboBox cb, JTextField txt_name, JTextArea txt_desc, JTextField txt_price ) {
 		int id = Integer.parseInt(cb.getSelectedItem().toString());
 		Model data = ProductHandler.getInstance().find(id);
@@ -380,6 +383,7 @@ public class StorageManagementInternalView extends JInternalFrame implements Act
 		txt_price.setText(Integer.toString(((ProductModel)data).getPrice()));
 	}
 	
+	//method untuk melakukan update isi pada textfield yang ada pada menu delete jika ada perubahan pada comboBox id pada menu delete
 	private void refreshDeleteCombo(JComboBox cb, JTextField txt_name, JTextArea txt_desc, JTextField txt_price, JTextField txt_stock ) {
 		int id = Integer.parseInt(cb.getSelectedItem().toString());
 		Model data = ProductHandler.getInstance().find(id);
@@ -389,6 +393,7 @@ public class StorageManagementInternalView extends JInternalFrame implements Act
 		txt_stock.setText(Integer.toString(((ProductModel)data).getStock()));
 	}
 	
+	//method untuk validasi data product baru pada saat insert data
 	private Boolean validateInsert(String name, String desc, String price, String stock) {
 		ProductHandler controller = ProductHandler.getInstance();
 		if(!controller.checkName(name)) {
@@ -410,6 +415,7 @@ public class StorageManagementInternalView extends JInternalFrame implements Act
 		return true;
 	}
 	
+	//method untuk validasi data product baru pada saat update data
 	private Boolean validateUpdate(String id, String name, String desc, String price) {
 		ProductHandler controller = ProductHandler.getInstance();
 		if(!controller.checkID(Integer.parseInt(id))) {
@@ -430,6 +436,7 @@ public class StorageManagementInternalView extends JInternalFrame implements Act
 		return true;
 	}
 	
+	//method untuk validasi data product pada saat add stock
 	private Boolean validateAddStock(String id, String stock) {
 		ProductHandler controller = ProductHandler.getInstance();
 		if(!controller.checkID(Integer.parseInt(id))) {
@@ -442,6 +449,7 @@ public class StorageManagementInternalView extends JInternalFrame implements Act
 		return true;
 	}
 	
+	//method untuk validasi data product id pada saat delete data 
 	private boolean validateDelete(String id) {
 		ProductHandler controller = ProductHandler.getInstance();
 		if(!controller.checkID(Integer.parseInt(id))) {
@@ -453,6 +461,7 @@ public class StorageManagementInternalView extends JInternalFrame implements Act
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btn_insert) {
+			//jika tombol insert ditekan
 			String name = txt_name.getText();
 			String desc = txt_description.getText();
 			String price = txt_price.getText();
@@ -476,6 +485,7 @@ public class StorageManagementInternalView extends JInternalFrame implements Act
 		}
 		
 		if(e.getSource() == btn_update) {
+			//jika tombol update ditekan
 			String id = cb_updID.getSelectedItem().toString();
 			String name = txt_updName.getText();
 			String desc = txt_updDesc.getText();
@@ -500,6 +510,7 @@ public class StorageManagementInternalView extends JInternalFrame implements Act
 		}
 		
 		if(e.getSource() == btn_addStock) {
+			//jika tombol add stock ditekan
 			String id  = cb_updID.getSelectedItem().toString();
 			String addStock = txt_stkNewStock.getText();
 			if(validateAddStock(id, addStock)) {
@@ -521,6 +532,7 @@ public class StorageManagementInternalView extends JInternalFrame implements Act
 		}
 		
 		if(e.getSource() == btn_delete) {
+			//jika tombol delete ditekan
 			ProductHandler controller = ProductHandler.getInstance();
 			String id = cb_delID.getSelectedItem().toString();
 			int confirm = JOptionPane.showConfirmDialog(this, "Delete this product?");
@@ -544,14 +556,17 @@ public class StorageManagementInternalView extends JInternalFrame implements Act
 		}
 		
 		if(e.getSource() == cb_stkID) {
+			//jika terjadi perubahan pilihan pada comboBox id pada menu add stock
 			refreshStkCombo(cb_stkID, txt_stkName, txt_stkDesc, txt_stkStock);
 		}
 		
 		if(e.getSource() == cb_updID) {
+			//jika terjadi perubahan pilihan pada comboBox id pada menu update
 			refreshUpdateCombo(cb_updID, txt_updName, txt_updDesc, txt_updPrice);
 		}
 		
 		if(e.getSource() == cb_delID) {
+			//jika terjadi perubahan pilihan pada comboBox id pada menu delete
 			refreshDeleteCombo(cb_delID, txt_delName, txt_delDesc, txt_delPrice, txt_delStock);
 		}
 	}

@@ -64,6 +64,7 @@ public class LoginInternalView extends JInternalFrame implements ActionListener{
 		btn_login.addActionListener(this);
 	}
 	
+	//method untuk validasi data login
 	private Boolean validateLogin(String username, String password) {
 		if(!EmployeeHandler.getInstance().checkUsernamePassword(username, password)) {
 			JOptionPane.showMessageDialog(this, "Username and Password cannot be empty!");
@@ -74,8 +75,8 @@ public class LoginInternalView extends JInternalFrame implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		if(e.getSource()==btn_login) {
+			//jika tombol login ditekan
 			String username = txt_username.getText();
 			String password = new String(txt_password.getPassword());
 			
