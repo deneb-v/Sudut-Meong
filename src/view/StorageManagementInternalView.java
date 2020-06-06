@@ -367,30 +367,36 @@ public class StorageManagementInternalView extends JInternalFrame implements Act
 
 	//method untuk melakukan update isi pada textfield yang ada pada menu restock jika ada perubahan pada comboBox id pada menu restock
 	private void refreshStkCombo(JComboBox cb, JTextField txt_name, JTextArea txt_desc, JTextField txt_currStock ) {
-		int id = Integer.parseInt(cb.getSelectedItem().toString());
-		Model data = ProductHandler.getInstance().find(id);
-		txt_name.setText(((ProductModel)data).getName());
-		txt_desc.setText(((ProductModel)data).getDescription());
-		txt_currStock.setText(Integer.toString(((ProductModel)data).getStock()));
+		if(cb.getSelectedItem()!=null) {			
+			int id = Integer.parseInt(cb.getSelectedItem().toString());
+			Model data = ProductHandler.getInstance().find(id);
+			txt_name.setText(((ProductModel)data).getName());
+			txt_desc.setText(((ProductModel)data).getDescription());
+			txt_currStock.setText(Integer.toString(((ProductModel)data).getStock()));
+		}
 	}
 	
 	//method untuk melakukan update isi pada textfield yang ada pada menu update jika ada perubahan pada comboBox id pada menu update
 	private void refreshUpdateCombo(JComboBox cb, JTextField txt_name, JTextArea txt_desc, JTextField txt_price ) {
-		int id = Integer.parseInt(cb.getSelectedItem().toString());
-		Model data = ProductHandler.getInstance().find(id);
-		txt_name.setText(((ProductModel)data).getName());
-		txt_desc.setText(((ProductModel)data).getDescription());
-		txt_price.setText(Integer.toString(((ProductModel)data).getPrice()));
+		if(cb.getSelectedItem()!=null) {			
+			int id = Integer.parseInt(cb.getSelectedItem().toString());
+			Model data = ProductHandler.getInstance().find(id);
+			txt_name.setText(((ProductModel)data).getName());
+			txt_desc.setText(((ProductModel)data).getDescription());
+			txt_price.setText(Integer.toString(((ProductModel)data).getPrice()));
+		}
 	}
 	
 	//method untuk melakukan update isi pada textfield yang ada pada menu delete jika ada perubahan pada comboBox id pada menu delete
 	private void refreshDeleteCombo(JComboBox cb, JTextField txt_name, JTextArea txt_desc, JTextField txt_price, JTextField txt_stock ) {
-		int id = Integer.parseInt(cb.getSelectedItem().toString());
-		Model data = ProductHandler.getInstance().find(id);
-		txt_name.setText(((ProductModel)data).getName());
-		txt_desc.setText(((ProductModel)data).getDescription());
-		txt_price.setText(Integer.toString(((ProductModel)data).getPrice()));
-		txt_stock.setText(Integer.toString(((ProductModel)data).getStock()));
+		if(cb.getSelectedItem()!=null) {			
+			int id = Integer.parseInt(cb.getSelectedItem().toString());
+			Model data = ProductHandler.getInstance().find(id);
+			txt_name.setText(((ProductModel)data).getName());
+			txt_desc.setText(((ProductModel)data).getDescription());
+			txt_price.setText(Integer.toString(((ProductModel)data).getPrice()));
+			txt_stock.setText(Integer.toString(((ProductModel)data).getStock()));
+		}
 	}
 	
 	//method untuk validasi data product baru pada saat insert data

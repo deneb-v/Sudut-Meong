@@ -295,29 +295,33 @@ public class PromoManagementInternalView extends JInternalFrame implements Actio
 	
 	//method untuk melakukan update isi pada textfield yang ada pada menu update jika ada perubahan pada comboBox id pada menu update
 	private void refreshCombo(JComboBox cb, JTextField txt_discount, JComboBox cb_date, JComboBox cb_month, JComboBox cb_year) {
-		int id = Integer.parseInt(cb.getSelectedItem().toString());
-		Model data = VoucherHandler.getInstance().find(id);
-		
-		long discount = ((VoucherModel)data).getDiscount().longValue();
-		txt_discount.setText(Long.toString(discount));
-		
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(((VoucherModel)data).getValidDate());
-		
-		cb_date.setSelectedItem(Integer.toString(cal.get(Calendar.DAY_OF_MONTH)));
-		cb_month.setSelectedIndex(cal.get(Calendar.MONTH)+1);
-		cb_year.setSelectedItem(Integer.toString(cal.get(Calendar.YEAR)));
+		if(cb.getSelectedItem()!=null) {			
+			int id = Integer.parseInt(cb.getSelectedItem().toString());
+			Model data = VoucherHandler.getInstance().find(id);
+			
+			long discount = ((VoucherModel)data).getDiscount().longValue();
+			txt_discount.setText(Long.toString(discount));
+			
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(((VoucherModel)data).getValidDate());
+			
+			cb_date.setSelectedItem(Integer.toString(cal.get(Calendar.DAY_OF_MONTH)));
+			cb_month.setSelectedIndex(cal.get(Calendar.MONTH)+1);
+			cb_year.setSelectedItem(Integer.toString(cal.get(Calendar.YEAR)));
+		}
 	}
 	
 	//method untuk melakukan update isi pada textfield yang ada pada menu delete jika ada perubahan pada comboBox id pada menu delete
 	private void refreshCombo(JComboBox cb, JTextField txt_discount, JTextField txt_validDate) {
-		int id = Integer.parseInt(cb.getSelectedItem().toString());
-		Model data = VoucherHandler.getInstance().find(id);
-		
-		long discount = ((VoucherModel)data).getDiscount().longValue();
-		txt_discount.setText(Long.toString(discount)+"%");
-		
-		txt_validDate.setText(((VoucherModel)data).getValidDate().toString());
+		if(cb.getSelectedItem()!=null) {			
+			int id = Integer.parseInt(cb.getSelectedItem().toString());
+			Model data = VoucherHandler.getInstance().find(id);
+			
+			long discount = ((VoucherModel)data).getDiscount().longValue();
+			txt_discount.setText(Long.toString(discount)+"%");
+			
+			txt_validDate.setText(((VoucherModel)data).getValidDate().toString());
+		}
 	}
 
 	@Override

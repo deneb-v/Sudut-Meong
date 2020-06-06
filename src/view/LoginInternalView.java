@@ -14,6 +14,8 @@ import javax.swing.JInternalFrame;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+
 import javax.swing.JFrame;
 
 public class LoginInternalView extends JInternalFrame implements ActionListener{
