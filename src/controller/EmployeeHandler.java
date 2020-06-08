@@ -81,23 +81,32 @@ public class EmployeeHandler extends Controller{
 	public EmployeeModel login(String username, String password) {
 		onLog = (EmployeeModel) model.login(username, password);
 		if(onLog!=null) {
-			if(onLog.getId()==1) {
+			if(onLog.getRoleID()==1) {
 				MainView.getInstance().openHrView();
 			}
-			else if(onLog.getId()==2) {
+			else if(onLog.getRoleID()==2) {
 				MainView.getInstance().openManagerView();
 			}
-			else if(onLog.getId()==3) {
+			else if(onLog.getRoleID()==3) {
 				MainView.getInstance().openStorageView();
 			}
-			else if(onLog.getId()==4) {
+			else if(onLog.getRoleID()==4) {
 				MainView.getInstance().openPromoView();
 			}
-			else if(onLog.getId()==5) {
+			else if(onLog.getRoleID()==5) {
 				MainView.getInstance().openCashierView();
 			}
+			MainView.getInstance().setAccountName("Hello!, "+onLog.getName());
 		}
 		return onLog;
+	}
+	
+	//method untuk melakukan logout
+	public void logout() {
+		onLog = null;
+		MainView.getInstance().reset();
+		MainView.getInstance().openLoginFrame();
+		MainView.getInstance().setAccountName("Not Logged In");
 	}
 
 	//method untuk mengambil seluruh data employee dari database

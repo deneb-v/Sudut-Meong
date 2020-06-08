@@ -96,13 +96,14 @@ public class EmployeeModel extends Model {
 	//method untuk mengupdate data baru kedalam database
 	@Override
 	public Model updateData() {
-		PreparedStatement query = db.prepareStatement("UPDATE Employee SET name=?, username=?, DOB=?, salary=?  WHERE id=? ");
+		PreparedStatement query = db.prepareStatement("UPDATE Employee SET name=?, username=?, DOB=?, salary=?, roleID=?  WHERE id=? ");
 		try {
 			query.setString(1, this.name);
 			query.setString(2, this.username);			
 			query.setDate(3, this.DOB);			
-			query.setInt(4, this.salary);			
-			query.setInt(5, getId());			
+			query.setInt(4, this.salary);
+			query.setInt(5, this.roleID);
+			query.setInt(6, getId());			
 			query.execute();
 			return this;
 		} catch (SQLException e) {

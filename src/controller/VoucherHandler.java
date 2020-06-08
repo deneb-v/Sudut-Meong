@@ -30,7 +30,7 @@ public class VoucherHandler extends Controller{
 	//method untuk melakukan update data voucher 
 	public VoucherModel updateData(int id, Float discount, String date) {
 		Date validDate = Date.valueOf(date);
-		return (VoucherModel) new VoucherModel(id, discount, validDate).insertData();
+		return (VoucherModel) new VoucherModel(id, discount, validDate).updateData();
 	}
 	
 	//method untuk melakukan penghapusan voucher berdasarkan id-nya
@@ -82,7 +82,7 @@ public class VoucherHandler extends Controller{
 		if(!isNumber(str)) {
 			return false;
 		}
-		if(Integer.parseInt(str)<1&&Integer.parseInt(str)>100) {
+		if(Integer.parseInt(str)<1||Integer.parseInt(str)>100) {
 			return false;
 		}
 		return true;

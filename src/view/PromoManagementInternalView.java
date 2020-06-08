@@ -259,7 +259,7 @@ public class PromoManagementInternalView extends JInternalFrame implements Actio
 	//method untuk validasi data voucher pada saat update voucher
 	private Boolean validateUpdate(int voucherID, String discount, String date) {
 		VoucherHandler controller = VoucherHandler.getInstance();
-		if(controller.checkID(voucherID)) {
+		if(controller.checkID(voucherID)==false) {
 			JOptionPane.showMessageDialog(this, "Voucher id must be exist!");
 			return false;
 		}
@@ -276,7 +276,7 @@ public class PromoManagementInternalView extends JInternalFrame implements Actio
 	
 	//method untuk validasi data voucher id pada saat delete voucher
 	private Boolean validateDelete(int voucherID) {
-		if(VoucherHandler.getInstance().checkID(voucherID)) {
+		if(!VoucherHandler.getInstance().checkID(voucherID)) {
 			JOptionPane.showMessageDialog(this, "Voucher id must be exist!");
 			return false;
 		}
@@ -350,7 +350,8 @@ public class PromoManagementInternalView extends JInternalFrame implements Actio
 		}
 		if(e.getSource()==btn_update) {
 			//jika tombol update ditekan
-			int voucherID = Integer.parseInt(cb_updID.getSelectedObjects().toString());
+			System.out.println(cb_updID.getSelectedItem().toString());
+			int voucherID = Integer.parseInt(cb_updID.getSelectedItem().toString());
 			String discount = txt_updDiscount.getText();
 			String date = cb_updYear.getSelectedItem().toString();
 			date = date.concat("-"+cb_updMonth.getSelectedIndex());
@@ -372,7 +373,7 @@ public class PromoManagementInternalView extends JInternalFrame implements Actio
 		}
 		if(e.getSource()==btn_delete) {
 			//jika tombol delete ditekan
-			int voucherID = Integer.parseInt(cb_delID.getSelectedObjects().toString());
+			int voucherID = Integer.parseInt(cb_delID.getSelectedItem().toString());
 			
 			int confirm = JOptionPane.showConfirmDialog(this, "Delete this voucher?");
 			if(confirm==0) {

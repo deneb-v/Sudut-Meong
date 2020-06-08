@@ -2,6 +2,8 @@ package view;
 
 import java.awt.Rectangle;
 import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JDesktopPane;
 import java.awt.BorderLayout;
@@ -15,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
+import controller.EmployeeHandler;
 import main.Main;
 
 import javax.swing.JTextField;
@@ -22,8 +25,11 @@ import javax.swing.JComboBox;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
-public class MainView extends View{
+public class MainView extends View implements ActionListener{
 	private static MainView mainView;
 	
 	JDesktopPane desktopPane;
@@ -34,12 +40,14 @@ public class MainView extends View{
 	private HumanResourceInternalView hrView;
 	private ManagerInternalView managerView;
 	private CashierInternalView cashierView;
+	private JMenuItem btn_logOut;
+	private JMenuItem txt_name;
 	
 	//method untuk membuka JInternalFrame
 	private void openInternalFrame(JInternalFrame frame) {
 	    Dimension jInternalFrameSize = frame.getSize();
 	    int width = (900 - jInternalFrameSize.width) / 2;
-	    frame.setLocation(width, 0);
+	    frame.setLocation(width, 22);
 	    frame.setVisible(true);
 	}
 	
@@ -90,6 +98,37 @@ public class MainView extends View{
 		desktopPane.add(managerView);
 	}
 
+	public void reset() {
+		loginView.setVisible(false);
+		hrView.setVisible(false);
+		managerView.setVisible(false);
+		promoView.setVisible(false);
+		storageView.setVisible(false);
+		cashierView.setVisible(false);
+		checkOutView.setVisible(false);
+		
+		desktopPane.remove(loginView);
+		desktopPane.remove(hrView);
+		desktopPane.remove(managerView);
+		desktopPane.remove(promoView);
+		desktopPane.remove(storageView);
+		desktopPane.remove(cashierView);
+		desktopPane.remove(checkOutView);
+		
+		loginView = new LoginInternalView();
+		hrView = new HumanResourceInternalView();
+		managerView = new ManagerInternalView();
+		promoView = new PromoManagementInternalView();
+		storageView = new StorageManagementInternalView();
+		cashierView = CashierInternalView.getInstance();
+		checkOutView = new CheckoutInternalView();
+		
+		addInternalFrame();
+	}
+	
+	public void setAccountName(String name) {
+		txt_name.setText(name);
+	}
 	
 	private MainView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -105,6 +144,21 @@ public class MainView extends View{
 		desktopPane = new JDesktopPane();
 		getContentPane().add(desktopPane, BorderLayout.CENTER);
 		
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBounds(0, 0, 888, 22);
+		desktopPane.add(menuBar);
+		
+		JMenu mnNewMenu = new JMenu("Account");
+		menuBar.add(mnNewMenu);
+		
+		txt_name = new JMenuItem("Not Logged In");
+		txt_name.setEnabled(false);
+		mnNewMenu.add(txt_name);
+		
+		btn_logOut = new JMenuItem("Log out");
+		mnNewMenu.add(btn_logOut);
+		btn_logOut.addActionListener(this);
+		
 		loginView = new LoginInternalView();
 		hrView = new HumanResourceInternalView();
 		managerView = new ManagerInternalView();
@@ -119,5 +173,13 @@ public class MainView extends View{
 	
 	public static synchronized MainView getInstance() {
 		return (mainView==null) ? mainView = new MainView() : mainView;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==btn_logOut) {
+			EmployeeHandler.getInstance().logout();
+		}
+		
 	}
 }
