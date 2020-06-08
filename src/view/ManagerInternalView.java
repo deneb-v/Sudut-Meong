@@ -147,7 +147,7 @@ public class ManagerInternalView extends JInternalFrame implements ActionListene
 		insertTab.setLayout(null);
 		tabbedPane_1.addTab("Add New Employee", null, insertTab, null);
 		
-		JLabel lblNewLabel = new JLabel("Name");
+		JLabel lblNewLabel = new JLabel("Employee Name");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel.setBounds(186, 65, 81, 16);
 		insertTab.add(lblNewLabel);

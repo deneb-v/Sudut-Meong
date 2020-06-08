@@ -89,7 +89,7 @@ public class HumanResourceInternalView extends JInternalFrame implements ActionL
 		insertTab.setLayout(null);
 		tabbedPane.addTab("Add New Employee", null, insertTab, null);
 		
-		JLabel lblNewLabel = new JLabel("Name");
+		JLabel lblNewLabel = new JLabel("Employee Name");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel.setBounds(187, 45, 81, 16);
 		insertTab.add(lblNewLabel);
