@@ -74,6 +74,15 @@ public class VoucherHandler extends Controller{
 		return true;
 	}
 	
+	//method untuk mengecek apakah voucher sudah digunakan
+	public Boolean checkUsed(int id) {
+		VoucherModel voucher = (VoucherModel) VoucherHandler.getInstance().find(id);
+		if(voucher.getStatus().matches("Used")) {
+			return true;
+		}
+		return false;
+	}
+	
 	//method untuk mengecek apakah diskon/discount yang dimasukan sudah sesuai dengan ketentuan
 	public Boolean checkDiscount(String str) {
 		if(str.isEmpty()) {

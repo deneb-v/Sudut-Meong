@@ -47,7 +47,9 @@ public class MainView extends View implements ActionListener{
 	private void openInternalFrame(JInternalFrame frame) {
 	    Dimension jInternalFrameSize = frame.getSize();
 	    int width = (900 - jInternalFrameSize.width) / 2;
-	    frame.setLocation(width, 22);
+	    System.out.println(jInternalFrameSize.height);
+	    int height = (785 - jInternalFrameSize.height)/2;
+	    frame.setLocation(width, height);
 	    frame.setVisible(true);
 	}
 	
@@ -98,6 +100,7 @@ public class MainView extends View implements ActionListener{
 		desktopPane.add(managerView);
 	}
 
+	//method untuk menutup dan membuat object internal view baru
 	public void reset() {
 		loginView.setVisible(false);
 		hrView.setVisible(false);
@@ -126,6 +129,7 @@ public class MainView extends View implements ActionListener{
 		addInternalFrame();
 	}
 	
+	//method untuk mengassign nama account yang terlogin pada bagian menu account
 	public void setAccountName(String name) {
 		txt_name.setText(name);
 	}
@@ -139,7 +143,7 @@ public class MainView extends View implements ActionListener{
 			// TODO: handle exception
 		}
 		
-		setBounds(new Rectangle(0, 23, 900, 763));
+		setBounds(new Rectangle(0, 23, 900, 795));
 		
 		desktopPane = new JDesktopPane();
 		getContentPane().add(desktopPane, BorderLayout.CENTER);

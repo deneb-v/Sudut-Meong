@@ -119,7 +119,7 @@ public class PromoManagementInternalView extends JInternalFrame implements Actio
 		tabbedPane.addTab("Update Voucher", null, updateTab, null);
 		updateTab.setLayout(null);
 		
-		JLabel lblNewLabel_2_1_1_1 = new JLabel("Product ID");
+		JLabel lblNewLabel_2_1_1_1 = new JLabel("Voucher ID");
 		lblNewLabel_2_1_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_2_1_1_1.setBounds(155, 97, 108, 16);
 		updateTab.add(lblNewLabel_2_1_1_1);
@@ -164,9 +164,9 @@ public class PromoManagementInternalView extends JInternalFrame implements Actio
 		
 		JPanel deleteTab = new JPanel();
 		deleteTab.setLayout(null);
-		tabbedPane.addTab("Delete Product", null, deleteTab, null);
+		tabbedPane.addTab("Delete Voucher", null, deleteTab, null);
 		
-		JLabel lblNewLabel_2_1_1_1_1 = new JLabel("Product ID");
+		JLabel lblNewLabel_2_1_1_1_1 = new JLabel("Voucher ID");
 		lblNewLabel_2_1_1_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_2_1_1_1_1.setBounds(168, 97, 108, 16);
 		deleteTab.add(lblNewLabel_2_1_1_1_1);
@@ -276,6 +276,9 @@ public class PromoManagementInternalView extends JInternalFrame implements Actio
 	
 	//method untuk validasi data voucher id pada saat delete voucher
 	private Boolean validateDelete(int voucherID) {
+		if(VoucherHandler.getInstance().checkUsed(voucherID)) {
+			JOptionPane.showMessageDialog(this, "Used voucher cannot be deleted!");
+		}
 		if(!VoucherHandler.getInstance().checkID(voucherID)) {
 			JOptionPane.showMessageDialog(this, "Voucher id must be exist!");
 			return false;
@@ -377,8 +380,7 @@ public class PromoManagementInternalView extends JInternalFrame implements Actio
 			
 			int confirm = JOptionPane.showConfirmDialog(this, "Delete this voucher?");
 			if(confirm==0) {
-				if(validateDelete(voucherID)) {
-					
+				if(validateDelete(voucherID)) {	
 					if(VoucherHandler.getInstance().deleteData(voucherID)) {
 						JOptionPane.showMessageDialog(this, "Delete success!");
 						fillIdComboBox(cb_delID);

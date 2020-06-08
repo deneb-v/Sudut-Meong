@@ -101,10 +101,10 @@ public class TransactionHandler extends Controller{
 		if(!VoucherHandler.getInstance().checkID(Integer.parseInt(id))) {
 			return false;
 		}
-		VoucherModel voucher = (VoucherModel) VoucherHandler.getInstance().find(Integer.parseInt(id));
-		if(voucher.getStatus().matches("Used")) {
+		if(VoucherHandler.getInstance().checkUsed(Integer.parseInt(id))) {
 			return false;
 		}
+		VoucherModel voucher = (VoucherModel) VoucherHandler.getInstance().find(Integer.parseInt(id));
 		if(voucher.getValidDate().before(new java.util.Date())) {
 			return false;
 		}
