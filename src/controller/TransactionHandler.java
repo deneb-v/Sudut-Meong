@@ -1,6 +1,8 @@
 package controller;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Vector;
 
@@ -95,21 +97,42 @@ public class TransactionHandler extends Controller{
 	
 	//method untuk mengecek apakah voucher yang dimasukan sesuai dengan ketentuan 
 	public Boolean checkVoucher(String id) {
+		System.out.println("voucher validate");
 		if(!isNumber(id)) {
+			System.out.println("voucher validate idnum");
 			return false;
 		}
 		if(!VoucherHandler.getInstance().checkID(Integer.parseInt(id))) {
+			System.out.println("voucher validate id");
 			return false;
 		}
+		System.out.println("asdas");
 		if(VoucherHandler.getInstance().checkUsed(Integer.parseInt(id))) {
 			return false;
 		}
 		VoucherModel voucher = (VoucherModel) VoucherHandler.getInstance().find(Integer.parseInt(id));
-		if(voucher.getValidDate().before(new java.util.Date())) {
+		if(voucher.getValidDate().before(new java.util.Date()) && !isSameDay(voucher.getValidDate(), new java.util.Date())) {
 			return false;
 		}
 		return true;
 	}
+	
+	//method untuk membandingkan 2 tanggal apakah tanggal tersebut memiliki tanggal yang sama
+	public boolean isSameDay(Date date1, java.util.Date date2) {
+        if (date1 == null || date2 == null) {
+            throw new IllegalArgumentException("The dates must not be null");
+        }
+        
+        Calendar cal1 = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+        
+        cal1.setTime(date1);
+        cal2.setTime(date2);
+        
+        return (cal1.get(Calendar.ERA) == cal2.get(Calendar.ERA) &&
+                cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
+                cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR));
+    }
 	
 	//method untuk mengecek apakah payment method yang dipilih sesuai dengan ketentuan
 	public Boolean checkPaymentMethod(String method) {
