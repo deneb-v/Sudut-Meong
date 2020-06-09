@@ -81,6 +81,7 @@ public class ProductHandler extends Controller{
 	
 	//method untuk mengecek apakah nama product yang dimasukan sudah sesuai dengan ketentuan
 	public Boolean checkName(String name) {
+		name = name.trim();
 		if(name.isEmpty()) {
 			return false;
 		}
@@ -89,6 +90,7 @@ public class ProductHandler extends Controller{
 	
 	//method untuk mengecek apakah deskripsi product yang dimasukan sudah sesuai dengan ketentuan
 	public Boolean checkDesc(String desc) {
+		desc = desc.trim();
 		if(desc.isEmpty()) {
 			return false;
 		}

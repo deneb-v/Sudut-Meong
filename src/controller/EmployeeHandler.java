@@ -68,6 +68,8 @@ public class EmployeeHandler extends Controller{
 	
 	//method untuk melakukan cek pada username dan password yang dimasukan pada saat login
 	public Boolean checkUsernamePassword(String username, String password) {
+		username = username.trim();
+		password = password.trim();
 		if(username.isEmpty()) {
 			return false;
 		}
@@ -141,6 +143,7 @@ public class EmployeeHandler extends Controller{
 	
 	//method untuk mengecek apakah sebuah username yang baru dibuat adalah username yang unik atau belum pernah dibuat
 	public Boolean checkUsername(String str) {
+		str = str.trim();
 		if(str.isEmpty()) {
 			return false;
 		}
@@ -157,6 +160,7 @@ public class EmployeeHandler extends Controller{
 	
 	//method untuk mengecek apakah sebuah username yang baru diupdate adalah username yang unik atau belum pernah dibuat
 	public Boolean checkUsername(String str, int id) {
+		str = str.trim();
 		if(str.isEmpty()) {
 			return false;
 		}
@@ -183,6 +187,7 @@ public class EmployeeHandler extends Controller{
 	
 	//Method untuk mengecek apakah nama yang dimasukan sudah sesuai dengan ketentuan
 	public Boolean checkName(String name) {
+		name = name.trim();
 		if(name.isEmpty()) {
 			return false;
 		}
@@ -191,6 +196,7 @@ public class EmployeeHandler extends Controller{
 	
 	//Method untuk mengecek apakah DateOfBirth yang dimasukan sudah sesuai ketentuan
 	public Boolean checkDOB(String dob) {
+		dob = dob.trim();
 		if(dob.isEmpty()) {
 			return false;
 		}
@@ -213,6 +219,7 @@ public class EmployeeHandler extends Controller{
 	
 	//method untuk mengecek apakah gaji/salary yang dimasukan sudah sesuai ketentuan
 	public Boolean checkSalary(String salary) {
+		salary = salary.trim();
 		if(salary.isEmpty()) {
 			return false;
 		}
