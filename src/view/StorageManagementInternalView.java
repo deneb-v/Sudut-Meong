@@ -342,7 +342,7 @@ public class StorageManagementInternalView extends JInternalFrame implements Act
 		    {
 		      return false;
 		    }
-		};;
+		};
 		for (Model d : data) {
 			Vector<Object> e = new Vector<Object>();
 			e.add( ((ProductModel)d).getId() );

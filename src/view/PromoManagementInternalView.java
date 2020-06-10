@@ -227,7 +227,7 @@ public class PromoManagementInternalView extends JInternalFrame implements Actio
 		    {
 		      return false;
 		    }
-		};;
+		};
 		for (Model d : data) {
 			Vector<Object> e = new Vector<Object>();
 			e.add( ((VoucherModel)d).getId() );

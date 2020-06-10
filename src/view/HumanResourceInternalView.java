@@ -571,7 +571,12 @@ public class HumanResourceInternalView extends JInternalFrame implements ActionL
 		tableColumn.add("Date Of Birth");
 		tableColumn.add("Salary");
 		tableColumn.add("Status");
-		DefaultTableModel model = new DefaultTableModel(tableColumn,0);
+		DefaultTableModel model = new DefaultTableModel(tableColumn,0){
+			public boolean isCellEditable(int row, int column)
+		    {
+		      return false;
+		    }
+		};
 		for (Model d : data) {
 			Vector<Object> e = new Vector<Object>();
 			e.add( ((EmployeeModel)d).getId() );

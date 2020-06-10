@@ -645,7 +645,7 @@ public class ManagerInternalView extends JInternalFrame implements ActionListene
 		    {
 		      return false;
 		    }
-		};;
+		};
 		for (Model d : data) {
 			Vector<Object> e = new Vector<Object>();
 			e.add( ((EmployeeModel)d).getId() );
